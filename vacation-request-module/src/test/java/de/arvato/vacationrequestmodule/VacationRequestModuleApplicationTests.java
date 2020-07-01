@@ -9,5 +9,4 @@ class VacationRequestModuleApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
