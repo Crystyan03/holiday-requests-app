@@ -16,7 +16,6 @@
 
     <properties>
         <java.version>11</java.version>
-        <org-hibernate-javax-persistence.version>1.0.2.Final</org-hibernate-javax-persistence.version>
     </properties>
 
     <dependencies>
@@ -58,8 +57,6 @@
             </exclusions>
         </dependency>
     </dependencies>
-
-
 
     <build>
         <plugins>
