@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vacation Request</title>
+</head>
+<body>
+    <h1>Fill your vacation request out</h1>
+    <form method="POST" th:object="${vacation}">
+        <div>
+            <div>
+                <h4>from</h4>
+                <input type="date" th:field="*{from}" id="from" />
+            </div>
+            <div>
+                <h4>to</h4>
+                <input type="date" th:field="*{to}" id="to" />
+            </div>
+            <div>
+                <br>
+                <button>Request</button>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
