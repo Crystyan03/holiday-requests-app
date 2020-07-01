@@ -1,16 +1,13 @@
 package de.arvato.vacationrequestmodule.data;
 
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,14 +16,20 @@ import java.time.LocalDateTime;
 public class VacationRequest implements Serializable {
 
     @Id
-    @Generated
+
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long requestID;
 
-    private LocalDateTime fromDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date fromDate;
 
-    private LocalDateTime toDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private Date toDate;
 
-    private String status;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RequestStatus status;
 
     @Column(nullable = false)
     private Long empId;
