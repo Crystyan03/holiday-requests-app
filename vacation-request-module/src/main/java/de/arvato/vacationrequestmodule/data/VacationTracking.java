@@ -1,7 +1,5 @@
 package de.arvato.vacationrequestmodule.data;
 
-
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,19 +13,14 @@ import java.sql.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "VacationRequests")
-public class VacationRequestDO implements Serializable {
+@Table(name = "VacationTracking")
+public class VacationTracking implements Serializable {
 
     @Id
-    @Generated
-    private String requestID;
-
-    private Date fromDate;
-
-    private Date toDate;
-
-    private String status;
-
     @Column(nullable = false)
-    private String empId;
+    private Long empId;
+
+    private Date year;
+
+    private int allowedVacations;
 }
