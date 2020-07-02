@@ -3,12 +3,10 @@ package de.arvato.vacationrequestmodule.data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.Year;
+
 
 @Getter
 @Setter
@@ -20,7 +18,7 @@ public class VacationTracking implements Serializable {
     @Column(nullable = false)
     private Long empId;
 
-    private Date year;
+     private Short year;
 
     private int allowedVacations;
 }

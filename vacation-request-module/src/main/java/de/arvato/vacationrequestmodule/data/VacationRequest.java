@@ -1,35 +1,36 @@
 package de.arvato.vacationrequestmodule.data;
 
 
-import lombok.Data;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "VacationRequests")
 public class VacationRequest implements Serializable {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long requestID;
 
-    @Column(name = "fromDate")
-    private LocalDate from;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate fromDate;
 
-    @Column(name = "toDate")
-    private LocalDate to;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate toDate;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RequestStatus status;
 
     @Column(nullable = false)
-    private Long employeeId;
+    private Long empId;
 
     @Column(nullable = false)
     private Long supervisorId;
