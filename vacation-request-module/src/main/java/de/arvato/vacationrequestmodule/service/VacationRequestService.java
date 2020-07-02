@@ -3,12 +3,14 @@ package de.arvato.vacationrequestmodule.service;
 
 import de.arvato.vacationrequestmodule.data.VacationRequest;
 import de.arvato.vacationrequestmodule.data.VacationTracking;
+import de.arvato.vacationrequestmodule.exceptions.VacationRequestStatusBadRequest;
 import de.arvato.vacationrequestmodule.repositories.VacationRequestRepository;
 import de.arvato.vacationrequestmodule.repositories.VacationTrackingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static de.arvato.vacationrequestmodule.validator.VacationRequestValidator.validateVacationRequest;
@@ -38,5 +40,26 @@ public class VacationRequestService {
         }).collect(Collectors.toList());
 
         return (int) (vacationTracking.getAllowedVacations() - vacationDaysList.stream().reduce(0L, Long::sum));
+    }
+
+    public Optional<VacationRequest> getVacationRequestById(Long id) {
+        return vacationRequestRepository.findById(id);
+    }
+
+    public VacationRequest updateVacationRequest(VacationRequest request, Boolean isSupervisor) {
+        validateIsSupervisorCondition(request, isSupervisor);
+        return vacationRequestRepository.save(request);
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    //                                      UTILS
+    //--------------------------------------------------------------------------------------------------
+
+    private void validateIsSupervisorCondition(VacationRequest request, Boolean isSupervisor) {
+        if (!isSupervisor) {
+            if (!(getVacationRequestById(request.getRequestID()).get().getStatus()).equals(request.getStatus())) {
+                throw new VacationRequestStatusBadRequest("Only Supervisor can update the REQUEST STATUS");
+            }
+        }
     }
 }
