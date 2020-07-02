@@ -28,16 +28,9 @@ public class VacationRequestController {
         model.addAttribute("vacation", new VacationRequest());
 
         RestTemplate restTemplate = new RestTemplate();
+        ArrayList<Employee> supervisors = restTemplate.getForObject(configurations.getEmployeeModuleUri(), ArrayList.class, true);
 
-//TODO: get all spuervisors from employee module.
-        var s1 = new Employee();
-        s1.setSurname("Bernd");
-        s1.setName("H");
-        var s2 = new Employee();
-        s2.setSurname("Ben");
-        s2.setName("Dorsch");
-
-        model.addAttribute("supervisors", Arrays.asList(s1,s2));
+        model.addAttribute("supervisors", supervisors);
 
         return "vacation_request";
     }

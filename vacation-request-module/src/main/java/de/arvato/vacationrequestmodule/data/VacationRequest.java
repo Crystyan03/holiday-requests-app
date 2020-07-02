@@ -1,30 +1,30 @@
 package de.arvato.vacationrequestmodule.data;
 
 
+import lombok.Data;
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "VacationRequests")
 public class VacationRequest implements Serializable {
 
     @Id
-    @Generated
-    private Long requestID;
+    @GeneratedValue
+    private Long id;
 
-    private LocalDateTime from;
+    @Column(name = "fromDate")
+    private LocalDate from;
 
-    private LocalDateTime to;
+    @Column(name = "toDate")
+    private LocalDate to;
 
     private String status;
 
