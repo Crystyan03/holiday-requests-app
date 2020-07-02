@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -20,10 +21,10 @@ public class VacationRequest implements Serializable {
     private Long requestID;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date fromDate;
+    private LocalDate fromDate;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private Date toDate;
+    private LocalDate toDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
