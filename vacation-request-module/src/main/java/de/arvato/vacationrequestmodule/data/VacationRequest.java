@@ -16,7 +16,6 @@ import java.util.Date;
 public class VacationRequest implements Serializable {
 
     @Id
-
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long requestID;
 
@@ -25,7 +24,6 @@ public class VacationRequest implements Serializable {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private Date toDate;
-
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
