@@ -22,12 +22,15 @@ public class VacationRequest implements Serializable {
     @Generated
     private Long requestID;
 
-    private LocalDateTime fromDate;
+    private LocalDateTime from;
 
-    private LocalDateTime toDate;
+    private LocalDateTime to;
 
     private String status;
 
     @Column(nullable = false)
-    private Long empId;
+    private Long employeeId;
+
+    @Column(nullable = false)
+    private Long supervisorId;
 }

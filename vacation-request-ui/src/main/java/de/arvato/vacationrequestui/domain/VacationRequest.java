@@ -8,5 +8,13 @@ import java.time.LocalDate;
 public class VacationRequest {
 
     private LocalDate from;
+
     private LocalDate to;
+
+    private Long supervisorId;
+
+    private Long employeeId;
+
+    private String status;
+
 }

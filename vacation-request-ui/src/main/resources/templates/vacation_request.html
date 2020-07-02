@@ -17,6 +17,12 @@
                 <input type="date" th:field="*{to}" id="to" />
             </div>
             <div>
+                <h4>Supervisor</h4>
+                <select th:field="*{supervisor}" id="supervisor">
+                    <option th:each="sv : ${supervisors}" th:value="${sv.id}" th:text="${sv.surname} + ' ' + ${sv.name}" />
+                </select>
+            </div>
+            <div>
                 <br>
                 <button>Request</button>
             </div>
