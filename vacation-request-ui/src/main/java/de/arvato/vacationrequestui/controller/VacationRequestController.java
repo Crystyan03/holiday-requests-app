@@ -3,6 +3,7 @@ package de.arvato.vacationrequestui.controller;
 import de.arvato.vacationrequestui.VacationRequestConfigurations;
 import de.arvato.vacationrequestui.domain.Employee;
 import de.arvato.vacationrequestui.domain.VacationRequest;
+import de.arvato.vacationrequestui.event.VacationRequestEventType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,6 +47,10 @@ public class VacationRequestController {
 
         //call vacation request module
         RestTemplate restTemplate = new RestTemplate();
+
+        vacation.setStatus(VacationRequestEventType.SUBMITED.name());
+        vacation.setEmployeeId(1L); //TODO: get from security context.
+
         VacationRequest vacationRequest = restTemplate.postForObject(configurations.getVacationRequestModuleUri(), vacation, VacationRequest.class);
 
         //send vacation request event
