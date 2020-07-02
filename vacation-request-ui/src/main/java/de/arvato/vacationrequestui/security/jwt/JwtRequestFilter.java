@@ -1,6 +1,8 @@
 package de.arvato.vacationrequestui.security.jwt;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -34,12 +36,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         final String requestTokenHeader = request.getHeader("Authorization");
         String username = null;
-        String jwtToken = null;
+        AtomicReference<String> jwtToken = new AtomicReference<>();
 
-        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ")) {
-            jwtToken = requestTokenHeader.substring(7);
+        Arrays.stream(request.getCookies())
+                .filter(c -> "JWT".equals(c.getName()))
+                .findAny().ifPresent(cookie -> {
+            jwtToken.set(cookie.getValue());
+        });
+
+        if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ") || jwtToken.get() != null) {
+            if (jwtToken.get() == null) {
+                jwtToken.set(requestTokenHeader.substring(7));
+            }
+
             try {
-                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken.get());
             } catch (IllegalArgumentException e) {
                 log.error("Unable to get JWT Token", e);
             } catch (ExpiredJwtException e) {
@@ -53,7 +64,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 
-            if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+            if (jwtTokenUtil.validateToken(jwtToken.get(), userDetails)) {
                 UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
                 usernamePasswordAuthenticationToken

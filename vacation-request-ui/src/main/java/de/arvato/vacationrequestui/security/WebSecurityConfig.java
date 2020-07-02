@@ -1,8 +1,10 @@
 package de.arvato.vacationrequestui.security;
 
 import de.arvato.vacationrequestui.security.jwt.JwtAuthenticationEntryPoint;
+import de.arvato.vacationrequestui.security.jwt.JwtAuthenticationFilter;
 import de.arvato.vacationrequestui.security.jwt.JwtRequestFilter;
 
+import de.arvato.vacationrequestui.security.jwt.JwtTokenUtil;
 import de.arvato.vacationrequestui.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private AuthenticationSuccessHandlerImpl successHandler;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -67,11 +69,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().disable()
                 .authorizeRequests().antMatchers("/registration").permitAll()
                                     .antMatchers("/login").permitAll().
-        anyRequest().authenticated().and()
-                .formLogin().permitAll().successHandler(successHandler).and().
+        anyRequest().authenticated().and().
         exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtTokenUtil, userDetailsService));
     }
 
     @Override
