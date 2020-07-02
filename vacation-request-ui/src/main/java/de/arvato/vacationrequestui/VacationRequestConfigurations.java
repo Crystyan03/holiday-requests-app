@@ -15,7 +15,7 @@ public class VacationRequestConfigurations {
     @Value("${de.arvato.vacationrequestui.employee.module.uri:http://localhost:8081/employee}")
     private String employeeModuleUri;
 
-    @Value("${de.arvato.vacationrequest.ui.vacation.request.module.uri:http://localhost:8082/vacation}")
+    @Value("${de.arvato.vacationrequest.ui.vacation.request.module.uri:http://localhost:8082/vacationrequest}")
     private String vacationRequestModuleUri;
 
 }

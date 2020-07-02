@@ -8,7 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -32,4 +31,7 @@ public class VacationRequest implements Serializable {
 
     @Column(nullable = false)
     private Long empId;
+
+    @Column(nullable = false)
+    private Long supervisorId;
 }
