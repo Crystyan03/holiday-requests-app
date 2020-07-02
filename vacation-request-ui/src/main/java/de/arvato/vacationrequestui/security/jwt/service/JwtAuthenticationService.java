@@ -1,6 +1,7 @@
 package de.arvato.vacationrequestui.security.jwt.service;
 
 import de.arvato.vacationrequestui.security.jwt.JwtTokenUtil;
+import de.arvato.vacationrequestui.security.model.User;
 import de.arvato.vacationrequestui.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,10 +25,10 @@ public class JwtAuthenticationService {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    public String createAuthenticationToken(String username, String password) throws Exception {
-        authenticate(username, password);
+    public String createAuthenticationToken(User user) throws Exception {
+        authenticate(user.getUsername(), user.getPassword());
         final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(username);
+                .loadUserByUsername(user.getUsername());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return token;
