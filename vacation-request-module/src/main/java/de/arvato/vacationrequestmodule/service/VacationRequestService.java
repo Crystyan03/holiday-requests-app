@@ -13,6 +13,8 @@ public class VacationRequestService {
     private VacationRequestRepository vacationRequestRepository;
 
     public VacationRequest createVacationRequest(VacationRequest vacationRequest) {
+
+
         return vacationRequestRepository.saveAndFlush(vacationRequest);
     }
 }
