@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     List<User> findByName(String name);
 
-    @Query("UPDATE User u SET u.lastLogin=:lastLogin WHERE u.username = ?#{ principal?.username }")
+    @Query("UPDATE User u SET u.lastLogin=:lastLogin WHERE u.username = ?#{ principal.username }")
     @Modifying
     @Transactional
     void updateLastLogin(@Param("lastLogin") Date lastLogin);
