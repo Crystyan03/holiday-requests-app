@@ -18,6 +18,12 @@ services:
       - vacation-request-postres-db
     networks:
       - backend-network
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
 networks:
   backend-network:
     external: false
