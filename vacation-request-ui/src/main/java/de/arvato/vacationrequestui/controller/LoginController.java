@@ -1,7 +1,8 @@
 package de.arvato.vacationrequestui.controller;
 
-import de.arvato.vacationrequestui.domain.Login;
+import de.arvato.vacationrequestui.security.model.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,24 +16,17 @@ public class LoginController {
 
 	@GetMapping()
 	public String current(Model model){
-		model.addAttribute("login", new Login());
+		if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+			return "redirect:/";
+		}
+		model.addAttribute("user", new User());
 		return "login";
-	}
-
-	@GetMapping("/")
-	public String home() {
-		return "login";
-	}
-
-	@GetMapping("/vacation/overview")
-	public String success() {
-		return "vacation_overview.html";
 	}
 
 	@PostMapping
-	public String postRequest(Login login) {
-		log.info("New loginRequest was done {}", login);
+	public String postRequest(User user) {
+		log.info("New loginRequest was done {}", user.getUsername());
 
-		return "redirect:/login/vacation/overview";
+		return "redirect:/";
 	}
 }
