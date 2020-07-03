@@ -14,6 +14,9 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
+vacation-request-module/.idea
+vacation-request-module/.mvn
+vacation-request-module/.gitignore
 .idea
 *.iws
 *.iml
