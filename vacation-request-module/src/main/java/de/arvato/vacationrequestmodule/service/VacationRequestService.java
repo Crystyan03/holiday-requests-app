@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import de.arvato.vacationrequestmodule.VacationRequestConfigurations;
 import de.arvato.vacationrequestmodule.component.EmailServiceImpl;
 import de.arvato.vacationrequestmodule.data.Employee;
+import de.arvato.vacationrequestmodule.data.RequestStatus;
 import de.arvato.vacationrequestmodule.data.VacationRequest;
 import de.arvato.vacationrequestmodule.data.VacationTracking;
 import de.arvato.vacationrequestmodule.exceptions.VacationRequestStatusBadRequest;
@@ -94,15 +95,14 @@ public class VacationRequestService {
         return vacationRequestRepository.save(request);
     }
 
-
     //--------------------------------------------------------------------------------------------------
     //                                      UTILS
     //--------------------------------------------------------------------------------------------------
 
     private void validateIsSupervisorCondition(VacationRequest request, Boolean isSupervisor) {
         if (!isSupervisor) {
-            if (!(getVacationRequestById(request.getRequestID()).get().getStatus()).equals(request.getStatus())) {
-                throw new VacationRequestStatusBadRequest("Only Supervisor can update the REQUEST STATUS");
+            if (request.getStatus().equals(RequestStatus.APPROVED) || request.getStatus().equals(RequestStatus.REJECTED)) {
+                throw new VacationRequestStatusBadRequest("Only Supervisor can APPROVE OR REJECT the vacation request.");
             }
         }
     }
