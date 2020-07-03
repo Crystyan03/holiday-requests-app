@@ -1,6 +1,6 @@
 version: '3'
 services:
-  vacation-request-db:
+  vacation-request-postres-db:
     container_name: vacation-request-postres-db
     image: "postgres:latest"
     ports:
@@ -15,7 +15,7 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - vacation-request-db
+      - vacation-request-postres-db
     networks:
       - backend-network
 networks:
