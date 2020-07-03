@@ -10,5 +10,6 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
     Iterable<Employee> findAllBySupervisor(boolean supervisor);
 
+    Employee findByUsername(String username);
 }
 

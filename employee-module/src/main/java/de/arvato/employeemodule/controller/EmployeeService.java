@@ -3,6 +3,7 @@ package de.arvato.employeemodule.controller;
 import de.arvato.employeemodule.model.Employee;
 import de.arvato.employeemodule.repository.EmployeeRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,6 +54,19 @@ public class EmployeeService {
 
         if(Objects.nonNull(employees)) {
             return new ResponseEntity<>(employees, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+
+    }
+
+    @GetMapping("/username")
+    public ResponseEntity<Employee> getEmployeeByUsername(@RequestParam(required = true) String username) {
+        Iterable<Employee> employees;
+        Employee employee = employeeRepository.findByUsername(username);
+
+        if(Objects.nonNull(employee)) {
+            return new ResponseEntity<>(employee, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
