@@ -12,10 +12,10 @@ public class VacationRequestValidator {
         Optional.ofNullable(vacationRequest.getStatus()).filter(Objects::nonNull).orElseThrow(() ->
                 new VacationRequestStatusBadRequest("status can not be null and should contain vallues either REQUEST, APPORVED or REJECTED"));
 
-        Optional.ofNullable(vacationRequest.getFromDate()).filter(Objects::nonNull).orElseThrow(() ->
+        Optional.ofNullable(vacationRequest.getFrom()).filter(Objects::nonNull).orElseThrow(() ->
                 new VacationRequestStatusBadRequest("fromdate can not be null."));
 
-        Optional.ofNullable(vacationRequest.getToDate()).filter(Objects::nonNull).orElseThrow(() ->
+        Optional.ofNullable(vacationRequest.getTo()).filter(Objects::nonNull).orElseThrow(() ->
                 new VacationRequestStatusBadRequest("todate can not be null."));
     }
 }

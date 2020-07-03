@@ -1,6 +1,6 @@
 version: '3'
 services:
-  vacation-request-db:
+  vacation-request-postres-db:
     container_name: vacation-request-postres-db
     image: "postgres:latest"
     ports:
@@ -10,14 +10,43 @@ services:
       - POSTGRES_USER=postgres
     networks:
       - backend-network
-  employee:
+  mailhog:
+    container_name: mailhog
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+    networks:
+      - backend-network
+  employee-module:
     build: ./employee-module
     ports:
       - "8081:8081"
     depends_on:
-      - vacation-request-db
+      - vacation-request-postres-db
     networks:
       - backend-network
+  vacation-request-module:
+    build: ./vacation-request-module
+    ports:
+      - "8082:8082"
+    depends_on:
+      - vacation-request-postres-db
+      - employee-module
+    networks:
+      - backend-network
+  vacation-module-frontend:
+    build: ./vacation-request-ui
+    ports:
+    - "8080:8080"
+    depends_on:
+      - vacation-request-module
+      - employee-module
+    networks:
+      - backend-network
+      - frontend-network
 networks:
   backend-network:
+    external: false
+  frontend-network:
     external: false

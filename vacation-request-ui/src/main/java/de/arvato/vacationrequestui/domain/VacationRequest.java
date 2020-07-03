@@ -18,7 +18,7 @@ public class VacationRequest {
 
     private Long supervisorId;
 
-    private Long employeeId;
+    private Long empId;
 
     private String status;
 
