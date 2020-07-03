@@ -1,11 +1,13 @@
 package de.arvato.vacationrequestmodule.controller;
 
 
+import de.arvato.vacationrequestmodule.data.VacationReport;
 import de.arvato.vacationrequestmodule.data.VacationRequest;
 import de.arvato.vacationrequestmodule.service.VacationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,12 @@ public class VacationRequestController {
     @GetMapping("{requestId}")
     public Optional<VacationRequest> getVacationRequest(@PathVariable("requestId") Long requestId) {
         return vacationRequestService.getVacationRequestById(requestId);
+    }
+
+    @GetMapping("vacationreport")
+    public List<VacationRequest> getMonthlyVacationReport(@RequestBody VacationReport vacationReport) {
+        List<VacationRequest> monthlyVacationReport = vacationRequestService.getMonthlyVacationReport(vacationReport);
+        return monthlyVacationReport;
     }
 
     @GetMapping
