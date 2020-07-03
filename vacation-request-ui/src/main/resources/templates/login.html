@@ -4,25 +4,24 @@
 <head>
     <title>Vacation Request Application</title>
 </head>
-    <body>
-        <h1>Login Page</h1>
-        <form method="POST" th:object="${login}">
+<body>
+    <h1>Login Page</h1>
+
+    <form method="POST" th:object="${user}">
+        <div>
             <div>
-                <div>
-                    <div>
-                        <h4>Username</h4>
-                        <input type="text" th:field="*{username}" id="username"/>
-                    </div>
-                    <div>
-                        <h4>Password</h4>
-                        <input type="text" th:field="*{password}" id="password"/>
-                    </div>
-                    <div>
-                        <br>
-                        <button>Login</button>
-                    </div>
-                </div>
+                <h4>Username</h4>
+                <input type="text" th:field="*{username}" id="username"/>
             </div>
-        </form>
-    </body>
+            <div>
+                <h4>Password</h4>
+                <input type="password" th:field="*{password}" id="password"/>
+            </div>
+            <div>
+                <br>
+                <button>Login</button>
+            </div>
+        </div>
+    </form>
+</body>
 </html>
