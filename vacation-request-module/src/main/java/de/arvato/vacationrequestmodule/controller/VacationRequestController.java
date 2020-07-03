@@ -6,6 +6,7 @@ import de.arvato.vacationrequestmodule.service.VacationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +19,11 @@ public class VacationRequestController {
     @GetMapping("{requestId}")
     public Optional<VacationRequest> getVacationRequest(@PathVariable("requestId") Long requestId) {
         return vacationRequestService.getVacationRequestById(requestId);
+    }
+
+    @GetMapping
+    public List<VacationRequest> getVacationRequest(@RequestParam(value = "supervisorId", required = false) Long supervisorId, @RequestParam(value = "employeeId", required = false) Long employeeId) {
+        return vacationRequestService.getVacationRequestBySupervisorAndEmplyoeeId(supervisorId, employeeId);
     }
 
     @PostMapping

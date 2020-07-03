@@ -13,4 +13,11 @@ public interface VacationRequestRepository extends JpaRepository<VacationRequest
 
     @Query("select vr from VacationRequest vr where vr.empId = :empId and vr.status ='APPROVED'")
     List<VacationRequest> getApprovedVacationRequest(Long empId);
+
+    @Query("select vr from VacationRequest vr where vr.supervisorId = :supervisorId")
+    List<VacationRequest> getVacationRequestsWithSupervisor(Long supervisorId);
+
+
+    @Query("select vr from VacationRequest vr where vr.empId = :employeeId")
+    List<VacationRequest> getVacationRequestsByEmpId(Long employeeId);
 }

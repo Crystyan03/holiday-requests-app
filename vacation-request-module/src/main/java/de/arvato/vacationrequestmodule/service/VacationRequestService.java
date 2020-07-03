@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,8 @@ public class VacationRequestService {
         return vacationRequestRepository.saveAndFlush(vacationRequest);
     }
 
+
+
     public int queryVacationBalance(Long empId) {
         VacationTracking vacationTracking = vacationTrackingRepository.getOne(empId);
 
@@ -42,14 +45,28 @@ public class VacationRequestService {
         return (int) (vacationTracking.getAllowedVacations() - vacationDaysList.stream().reduce(0L, Long::sum));
     }
 
+
     public Optional<VacationRequest> getVacationRequestById(Long id) {
         return vacationRequestRepository.findById(id);
+    }
+
+
+    public List<VacationRequest> getVacationRequestBySupervisorAndEmplyoeeId(Long supervisorId, Long employeeId) {
+        List<VacationRequest> vacationRequests = null;
+
+        if (Objects.nonNull(supervisorId)) {
+            vacationRequests = vacationRequestRepository.getVacationRequestsWithSupervisor(supervisorId);
+        } else {
+            vacationRequests = vacationRequestRepository.getVacationRequestsByEmpId(employeeId);
+        }
+        return vacationRequests;
     }
 
     public VacationRequest updateVacationRequest(VacationRequest request, Boolean isSupervisor) {
         validateIsSupervisorCondition(request, isSupervisor);
         return vacationRequestRepository.save(request);
     }
+
 
     //--------------------------------------------------------------------------------------------------
     //                                      UTILS
