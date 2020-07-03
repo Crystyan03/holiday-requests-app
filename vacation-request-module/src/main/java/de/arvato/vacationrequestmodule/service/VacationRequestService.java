@@ -4,10 +4,7 @@ package de.arvato.vacationrequestmodule.service;
 import com.google.common.collect.ImmutableMap;
 import de.arvato.vacationrequestmodule.VacationRequestConfigurations;
 import de.arvato.vacationrequestmodule.component.EmailServiceImpl;
-import de.arvato.vacationrequestmodule.data.Employee;
-import de.arvato.vacationrequestmodule.data.RequestStatus;
-import de.arvato.vacationrequestmodule.data.VacationRequest;
-import de.arvato.vacationrequestmodule.data.VacationTracking;
+import de.arvato.vacationrequestmodule.data.*;
 import de.arvato.vacationrequestmodule.exceptions.VacationRequestStatusBadRequest;
 import de.arvato.vacationrequestmodule.repositories.VacationRequestRepository;
 import de.arvato.vacationrequestmodule.repositories.VacationTrackingRepository;
@@ -17,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -95,6 +93,11 @@ public class VacationRequestService {
         return vacationRequestRepository.save(request);
     }
 
+    public List<VacationRequest> getMonthlyVacationReport(VacationReport vacationReport) {
+        return vacationRequestRepository.getMonthlyVacationReport(vacationReport.getFrom(), vacationReport.getTo(),
+               vacationReport.getStatus());
+    }
+
     //--------------------------------------------------------------------------------------------------
     //                                      UTILS
     //--------------------------------------------------------------------------------------------------
@@ -106,4 +109,6 @@ public class VacationRequestService {
             }
         }
     }
+
+
 }
