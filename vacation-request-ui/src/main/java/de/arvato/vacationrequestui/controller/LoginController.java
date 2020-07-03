@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/login")
 public class LoginController {
 
-    @GetMapping()
-    public String current(Model model){
-        model.addAttribute("user", new User());
-        return "login";
-    }
+	@GetMapping()
+	public String current(Model model){
+		model.addAttribute("user", new User());
+		return "login";
+	}
 
-    @PostMapping()
-    public String loginUser(User user) throws Exception {
-        log.info("Just logged in: {}", user.getUsername());
+	@PostMapping
+	public String postRequest(User user) {
+		log.info("New loginRequest was done {}", user.getUsername());
 
-        return "redirect:/";
-    }
+		return "redirect:/";
+	}
 }
