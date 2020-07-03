@@ -38,11 +38,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         AtomicReference<String> jwtToken = new AtomicReference<>();
 
-        Arrays.stream(request.getCookies())
-                .filter(c -> "JWT".equals(c.getName()))
-                .findAny().ifPresent(cookie -> {
-            jwtToken.set(cookie.getValue());
-        });
+        if (request.getCookies() != null) {
+            Arrays.stream(request.getCookies())
+                    .filter(c -> "JWT".equals(c.getName()))
+                    .findAny().ifPresent(cookie -> {
+                jwtToken.set(cookie.getValue());
+            });
+        }
 
         if (requestTokenHeader != null && requestTokenHeader.startsWith("Bearer ") || jwtToken.get() != null) {
             if (jwtToken.get() == null) {
