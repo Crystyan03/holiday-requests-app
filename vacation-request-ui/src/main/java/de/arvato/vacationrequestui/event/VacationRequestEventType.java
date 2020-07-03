@@ -2,7 +2,7 @@ package de.arvato.vacationrequestui.event;
 
 public enum VacationRequestEventType {
 
-    SUBMITED,
+    SUBMITTED,
     APPROVED,
     CANCELED,
     REJECTED
