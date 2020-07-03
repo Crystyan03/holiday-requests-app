@@ -29,7 +29,8 @@ public class VacationRequestController {
         model.addAttribute("vacation", new VacationRequest());
 
         RestTemplate restTemplate = new RestTemplate();
-        ArrayList<Employee> supervisors = restTemplate.getForObject(configurations.getEmployeeModuleUri(), ArrayList.class, true);
+        String url = configurations.getEmployeeModuleUri() + "?supervisor=true";
+        ArrayList<Employee> supervisors = restTemplate.getForObject(url, ArrayList.class, true);
 
         model.addAttribute("supervisors", supervisors);
 
@@ -49,7 +50,7 @@ public class VacationRequestController {
         RestTemplate restTemplate = new RestTemplate();
 
         vacation.setStatus(VacationRequestEventType.SUBMITED.name());
-        vacation.setEmployeeId(1L); //TODO: get from security context.
+        vacation.setEmpId(1L); //TODO: get from security context.
 
         VacationRequest vacationRequest = restTemplate.postForObject(configurations.getVacationRequestModuleUri(), vacation, VacationRequest.class);
 

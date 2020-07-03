@@ -19,11 +19,13 @@ public class VacationRequest implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long requestID;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate fromDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name="fromDate")
+    private LocalDate from;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate toDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name="toDate")
+    private LocalDate to;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
