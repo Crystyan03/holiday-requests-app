@@ -2,7 +2,6 @@ package de.arvato.employeemodule.controller;
 
 import de.arvato.employeemodule.model.Employee;
 import de.arvato.employeemodule.repository.EmployeeRepository;
-import javafx.beans.property.ReadOnlyBooleanProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
