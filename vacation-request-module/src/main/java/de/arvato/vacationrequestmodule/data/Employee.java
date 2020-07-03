@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Setter
 public class Employee implements Serializable {
 
-
     private Long id;
 
     private String name;

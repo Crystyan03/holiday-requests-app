@@ -20,11 +20,11 @@ public class VacationRequest implements Serializable {
     private Long requestID;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="fromDate")
+    @Column(name = "fromDate")
     private LocalDate from;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name="toDate")
+    @Column(name = "toDate")
     private LocalDate to;
 
     @Enumerated(EnumType.STRING)

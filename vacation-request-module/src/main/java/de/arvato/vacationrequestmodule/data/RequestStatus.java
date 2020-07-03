@@ -1,5 +1,5 @@
 package de.arvato.vacationrequestmodule.data;
 
 public enum RequestStatus {
-        REQUEST, REJECTED, APPROVED, SUBMITED;
-    }
+    REQUEST, REJECTED, APPROVED, SUBMITED;
+}
