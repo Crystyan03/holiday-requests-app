@@ -49,7 +49,7 @@ public class VacationRequestController {
         //call vacation request module
         RestTemplate restTemplate = new RestTemplate();
 
-        vacation.setStatus(VacationRequestEventType.SUBMITED.name());
+        vacation.setStatus(VacationRequestEventType.SUBMITTED.name());
         vacation.setEmpId(1L); //TODO: get from security context.
 
         VacationRequest vacationRequest = restTemplate.postForObject(configurations.getVacationRequestModuleUri(), vacation, VacationRequest.class);
